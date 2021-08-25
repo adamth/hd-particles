@@ -93,7 +93,7 @@ export class Particles {
       );
       particle.x += particle.vx;
       particle.y -= particle.vy;
-      // particle.vy -= this.gravity;
+      particle.vy -= this.gravity;
       // particle.rotation += (particle.rotationRate * Math.PI) / 180;
       // particle.age += 1;
 
