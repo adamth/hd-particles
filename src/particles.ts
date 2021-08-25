@@ -41,7 +41,7 @@ export class Particles {
         vx,
         vy,
         color,
-        (Math.random() - 0.5) * 2 * 2,
+        (Math.random() - 0.5) * 2 * 10,
       ),
     );
   }
@@ -115,10 +115,10 @@ export class Particles {
           diamond(context, particle, 0.4);
           break;
         case 'square':
-          rectangle(context, particle, 0.7);
+          rectangle(context, particle, 0.2);
           break;
         case 'star':
-          star(context, particle, 0.15);
+          star(context, particle, 0.1);
           break;
       }
       context.fill();
