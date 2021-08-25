@@ -89,6 +89,15 @@ export class Particles {
     return this.canvas?.getContext('2d');
   }
 
+  getOpacity(particle: Particle) {
+    if (particle.age > this.maxAge) {
+      const value = (130 - particle.age) / 100;
+      return value >= 0 ? value : 0;
+    }
+
+    return 1;
+  }
+
   draw() {
     const context = this.getContext();
     if (!context) return;
@@ -96,7 +105,7 @@ export class Particles {
     this.clearCanvas();
     this.particles.forEach((particle, i) => {
       context.beginPath();
-      // context.globalAlpha = this.getOpacity(particle);
+      context.globalAlpha = this.getOpacity(particle);
       context.fillStyle = particle.color;
       switch (particle.shape) {
         case 'circle':
@@ -117,11 +126,11 @@ export class Particles {
       particle.y -= particle.vy;
       particle.vy -= this.gravity;
       // particle.rotation += (particle.rotationRate * Math.PI) / 180;
-      // particle.age += 1;
+      particle.age += 1;
 
-      // if (particle.outsideBounds(this.width, this.height)) {
-      //   this.particles.splice(i, 1);
-      // }
+      if (particle.outsideBounds(this.width, this.height)) {
+        this.particles.splice(i, 1);
+      }
     });
   }
 }
