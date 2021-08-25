@@ -28,8 +28,16 @@ export class Particles {
   }
 
   _createParticle(i: number) {
+    const vx = (Math.random() - 0.5) * 2 * 5;
+    const vy = Math.random() * 10 + 5;
+
     this.particles.push(
-      new Particle(Math.random() * this.width, Math.random() * this.height),
+      new Particle(
+        Math.random() * this.width,
+        Math.random() * this.height,
+        vx,
+        vy,
+      ),
     );
   }
 
@@ -83,8 +91,8 @@ export class Particles {
         this.particleSize,
         this.particleSize,
       );
-      // particle.x += particle.vx;
-      // particle.y -= particle.vy;
+      particle.x += particle.vx;
+      particle.y -= particle.vy;
       // particle.vy -= this.gravity;
       // particle.rotation += (particle.rotationRate * Math.PI) / 180;
       // particle.age += 1;
