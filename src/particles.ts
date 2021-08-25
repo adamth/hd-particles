@@ -59,7 +59,10 @@ export class Particles {
 
   start() {
     if (!this.canvas) return;
-    this._createParticle(0);
+    for (let i = 0; i < this.count; i++) {
+      this._createParticle(i);
+    }
+
     setInterval(() => {
       this.draw();
     }, 1000 / 60);
