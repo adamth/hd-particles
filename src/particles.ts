@@ -80,7 +80,7 @@ export class Particles {
     const context = this.getContext();
     if (!context) return;
 
-    this.clearCanvas();
+    // this.clearCanvas();
     this.particles.forEach((particle, i) => {
       context.beginPath();
       // context.globalAlpha = this.getOpacity(particle);
