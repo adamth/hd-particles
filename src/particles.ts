@@ -42,6 +42,7 @@ export class Particles {
         vx,
         vy,
         color,
+        (Math.random() - 0.5) * 2 * 2,
       ),
     );
   }
@@ -105,6 +106,7 @@ export class Particles {
     this.clearCanvas();
     this.particles.forEach((particle, i) => {
       context.beginPath();
+      context.rotate(particle.rotation);
       context.globalAlpha = this.getOpacity(particle);
       context.fillStyle = particle.color;
       switch (particle.shape) {
@@ -125,7 +127,7 @@ export class Particles {
       particle.x += particle.vx;
       particle.y -= particle.vy;
       particle.vy -= this.gravity;
-      // particle.rotation += (particle.rotationRate * Math.PI) / 180;
+      particle.rotation += (particle.rotationRate * Math.PI) / 180;
       particle.age += 1;
 
       if (particle.outsideBounds(this.width, this.height)) {
