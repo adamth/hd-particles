@@ -8,7 +8,6 @@ export class Particles {
   canvas?: HTMLCanvasElement;
   particles: Array<Particle> = [];
   count: number;
-  particleSize = 20;
   gravity: number = 0.2;
   originX: number;
   originY: number;
