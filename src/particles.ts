@@ -1,5 +1,4 @@
 import { Particle } from './particle';
-import { circle, diamond, rectangle, star } from './shapes';
 
 export class Particles {
   width: number;
@@ -8,7 +7,7 @@ export class Particles {
   canvas?: HTMLCanvasElement;
   particles: Array<Particle> = [];
   count: number;
-  particleSize = 5;
+  particleSize = 20;
   gravity: number = 0.2;
   originX: number;
   originY: number;
@@ -29,20 +28,8 @@ export class Particles {
   }
 
   _createParticle(i: number) {
-    const vx = (Math.random() - 0.5) * 2 * 5;
-    const vy = Math.random() * 10 + 5;
-    const color = `hsla(${Math.floor(Math.random() * 400)},96%,50%, 1)`;
-    const xOffset = Math.sin(i) * 20;
-    const yOffset = Math.cos(i) * 20;
     this.particles.push(
-      new Particle(
-        this.originX + xOffset,
-        this.originY + yOffset,
-        vx,
-        vy,
-        color,
-        (Math.random() - 0.5) * 2 * 2,
-      ),
+      new Particle(Math.random() * this.width, Math.random() * this.height),
     );
   }
 
@@ -54,22 +41,17 @@ export class Particles {
   }
 
   create() {
-    const canvasPosition = this.getCanvasPosition();
     this.canvas = document.createElement('canvas');
     this.canvas.style.pointerEvents = 'none';
+    this.canvas.style.border = '1px solid black';
     this.canvas.width = this.width;
     this.canvas.height = this.height;
-    this.canvas.style.position = 'absolute';
-    this.canvas.style.top = canvasPosition.top;
-    this.canvas.style.left = canvasPosition.left;
     this.el.parentElement?.appendChild(this.canvas);
   }
 
   start() {
     if (!this.canvas) return;
-    for (let i = 0; i < this.count; i++) {
-      this._createParticle(i);
-    }
+    this._createParticle(0);
     setInterval(() => {
       this.draw();
     }, 1000 / 60);
@@ -86,15 +68,6 @@ export class Particles {
     return this.canvas?.getContext('2d');
   }
 
-  getOpacity(particle: Particle) {
-    if (particle.age > this.maxAge) {
-      const value = (130 - particle.age) / 100;
-      return value >= 0 ? value : 0;
-    }
-
-    return 1;
-  }
-
   draw() {
     const context = this.getContext();
     if (!context) return;
@@ -102,32 +75,23 @@ export class Particles {
     this.clearCanvas();
     this.particles.forEach((particle, i) => {
       context.beginPath();
-      context.globalAlpha = this.getOpacity(particle);
+      // context.globalAlpha = this.getOpacity(particle);
       context.fillStyle = particle.color;
-      switch (particle.shape) {
-        case 'circle':
-          circle(context, particle, 0.2);
-          break;
-        case 'diamond':
-          diamond(context, particle, 0.4);
-          break;
-        case 'square':
-          rectangle(context, particle, 0.7);
-          break;
-        case 'star':
-          star(context, particle, 0.15);
-          break;
-      }
-      context.fill();
-      particle.x += particle.vx;
-      particle.y -= particle.vy;
-      particle.vy -= this.gravity;
-      particle.rotation += (particle.rotationRate * Math.PI) / 180;
-      particle.age += 1;
+      context.fillRect(
+        particle.x,
+        particle.y,
+        this.particleSize,
+        this.particleSize,
+      );
+      // particle.x += particle.vx;
+      // particle.y -= particle.vy;
+      // particle.vy -= this.gravity;
+      // particle.rotation += (particle.rotationRate * Math.PI) / 180;
+      // particle.age += 1;
 
-      if (particle.outsideBounds(this.width, this.height)) {
-        this.particles.splice(i, 1);
-      }
+      // if (particle.outsideBounds(this.width, this.height)) {
+      //   this.particles.splice(i, 1);
+      // }
     });
   }
 }

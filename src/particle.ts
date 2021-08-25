@@ -5,7 +5,7 @@ export class Particle {
   y: number;
   vx: number;
   vy: number;
-  color: string;
+  color: string = 'black';
   age: number = 0;
   shape: Shape;
   rotation: number = 0;
@@ -14,10 +14,10 @@ export class Particle {
   constructor(
     x: number,
     y: number,
-    vx: number,
-    vy: number,
-    color: string,
-    rotationRate: number,
+    vx: number = 0,
+    vy: number = 0,
+    color: string = 'black',
+    rotationRate: number = 0,
   ) {
     const shapes = ['star', 'square', 'circle', 'diamond'];
     this.x = x;
