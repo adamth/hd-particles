@@ -31,11 +31,13 @@ export class Particles {
     const vx = (Math.random() - 0.5) * 2 * 5;
     const vy = Math.random() * 10 + 5;
     const color = `hsla(${Math.floor(Math.random() * 400)},96%,50%, 1)`;
+    const xOffset = Math.sin(i) * 20;
+    const yOffset = Math.cos(i) * 20;
 
     this.particles.push(
       new Particle(
-        Math.random() * this.width,
-        Math.random() * this.height,
+        this.originX + xOffset,
+        this.originY + yOffset,
         vx,
         vy,
         color,
@@ -51,11 +53,16 @@ export class Particles {
   }
 
   create() {
+    const canvasPosition = this.getCanvasPosition();
+
     this.canvas = document.createElement('canvas');
     this.canvas.style.pointerEvents = 'none';
-    this.canvas.style.border = '1px solid black';
     this.canvas.width = this.width;
     this.canvas.height = this.height;
+    this.canvas.style.position = 'absolute';
+    this.canvas.style.top = canvasPosition.top;
+    this.canvas.style.left = canvasPosition.left;
+
     this.el.parentElement?.appendChild(this.canvas);
   }
 
