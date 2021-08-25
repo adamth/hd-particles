@@ -1,4 +1,5 @@
 import { Particle } from './particle';
+import { circle, diamond, rectangle, star } from './shapes';
 
 export class Particles {
   width: number;
@@ -97,12 +98,21 @@ export class Particles {
       context.beginPath();
       // context.globalAlpha = this.getOpacity(particle);
       context.fillStyle = particle.color;
-      context.fillRect(
-        particle.x,
-        particle.y,
-        this.particleSize,
-        this.particleSize,
-      );
+      switch (particle.shape) {
+        case 'circle':
+          circle(context, particle, 0.2);
+          break;
+        case 'diamond':
+          diamond(context, particle, 0.4);
+          break;
+        case 'square':
+          rectangle(context, particle, 0.7);
+          break;
+        case 'star':
+          star(context, particle, 0.15);
+          break;
+      }
+      context.fill();
       particle.x += particle.vx;
       particle.y -= particle.vy;
       particle.vy -= this.gravity;
