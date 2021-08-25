@@ -30,6 +30,7 @@ export class Particles {
   _createParticle(i: number) {
     const vx = (Math.random() - 0.5) * 2 * 5;
     const vy = Math.random() * 10 + 5;
+    const color = `hsla(${Math.floor(Math.random() * 400)},96%,50%, 1)`;
 
     this.particles.push(
       new Particle(
@@ -37,6 +38,7 @@ export class Particles {
         Math.random() * this.height,
         vx,
         vy,
+        color,
       ),
     );
   }
