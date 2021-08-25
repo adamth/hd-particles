@@ -106,7 +106,6 @@ export class Particles {
     this.clearCanvas();
     this.particles.forEach((particle, i) => {
       context.beginPath();
-      context.rotate(particle.rotation);
       context.globalAlpha = this.getOpacity(particle);
       context.fillStyle = particle.color;
       switch (particle.shape) {
